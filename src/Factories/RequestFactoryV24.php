@@ -106,6 +106,11 @@ final class RequestFactoryV24 extends RequestFactoryV2
         return $this->createFDL($context);
     }
 
+    public function createZ01(RequestContext $context): Request
+    {
+        throw new LogicException('Method not implemented yet for EBICS 2.4');
+    }
+
     public function createZ52(RequestContext $context): Request
     {
         throw new LogicException('Method not implemented yet for EBICS 2.4');

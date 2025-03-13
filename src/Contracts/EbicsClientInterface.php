@@ -238,6 +238,21 @@ interface EbicsClientInterface
     ): DownloadOrderResult;
 
     /**
+     * Download credit transaction statuses (i.e Switzerland financial services).
+     *
+     * @param DateTimeInterface|null $startDateTime the start date of requested transactions
+     * @param DateTimeInterface|null $endDateTime the end date of requested transactions
+     * @param RequestContext|null $context
+     *
+     * @return DownloadOrderResult
+     */
+    public function Z01(
+        ?DateTimeInterface $startDateTime = null,
+        ?DateTimeInterface $endDateTime = null,
+        ?RequestContext $context = null
+    ): DownloadOrderResult;
+
+    /**
      * Download the bank account report in camt.052 format (i.e Switzerland financial services).
      *
      * @param DateTimeInterface|null $startDateTime the start date of requested transactions

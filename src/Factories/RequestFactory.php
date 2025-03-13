@@ -736,6 +736,8 @@ abstract class RequestFactory
 
     abstract public function createC54(RequestContext $context): Request;
 
+    abstract public function createZ01(RequestContext $context): Request;
+
     abstract public function createZ52(RequestContext $context): Request;
 
     abstract public function createZ53(RequestContext $context): Request;

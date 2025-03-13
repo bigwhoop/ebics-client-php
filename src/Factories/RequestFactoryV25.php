@@ -155,6 +155,20 @@ final class RequestFactoryV25 extends RequestFactoryV2
     /**
      * @throws EbicsException
      */
+    public function createZ01(RequestContext $context): Request
+    {
+        $context
+            ->setOrderType('Z01')
+            ->setBank($this->bank)
+            ->setUser($this->user)
+            ->setKeyring($this->keyring);
+
+        return $this->buildDownloadRequest($context);
+    }
+
+    /**
+     * @throws EbicsException
+     */
     public function createZ52(RequestContext $context): Request
     {
         $context

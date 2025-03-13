@@ -19,6 +19,7 @@ use EbicsApi\Ebics\Exceptions\EbicsException;
 use EbicsApi\Ebics\Models\Http\Request;
 use EbicsApi\Ebics\Models\UploadTransaction;
 use EbicsApi\Ebics\Models\UserSignature;
+use LogicException;
 
 /**
  * Ebics 3.0 RequestFactory.
@@ -235,6 +236,11 @@ final class RequestFactoryV30 extends RequestFactory
         $btdContext->setContainerType('ZIP');
 
         return $this->createBTD($context);
+    }
+
+    public function createZ01(RequestContext $context): Request
+    {
+        throw new LogicException('Method not implemented yet for EBICS 3');
     }
 
     public function createZ52(RequestContext $context): Request

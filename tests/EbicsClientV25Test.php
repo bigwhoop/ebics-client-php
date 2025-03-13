@@ -574,6 +574,34 @@ class EbicsClientV25Test extends AbstractEbicsTestCase
     /**
      * @dataProvider serversDataProvider
      *
+     * @group Z01
+     *
+     * @param int $credentialsId
+     * @param array $codes
+     *
+     * @covers
+     */
+    public function testZ01(int $credentialsId, array $codes)
+    {
+        $client = $this->setupClientV25($credentialsId, $codes['Z01']['fake']);
+
+        $this->assertExceptionCode($codes['Z01']['code']);
+        $z01 = $client->Z01(new DateTime('2020-03-21'), new DateTime('2020-04-21'));
+
+        $responseHandler = $client->getResponseHandler();
+        $code = $responseHandler->retrieveH00XReturnCode($z01->getTransaction()->getLastSegment()->getResponse());
+        $reportText = $responseHandler->retrieveH00XReportText($z01->getTransaction()->getLastSegment()->getResponse());
+        $this->assertResponseOk($code, $reportText);
+
+        $code = $responseHandler->retrieveH00XReturnCode($z01->getTransaction()->getReceipt());
+        $reportText = $responseHandler->retrieveH00XReportText($z01->getTransaction()->getReceipt());
+
+        $this->assertResponseDone($code, $reportText);
+    }
+
+    /**
+     * @dataProvider serversDataProvider
+     *
      * @group Z53
      *
      * @param int $credentialsId
@@ -1114,6 +1142,7 @@ class EbicsClientV25Test extends AbstractEbicsTestCase
                     'VMK' => ['code' => '090003', 'fake' => false],
                     'STA' => ['code' => '090003', 'fake' => false],
                     'BKA' => ['code' => '091005', 'fake' => false],
+                    'Z01' => ['code' => '090005', 'fake' => false],
                     'Z52' => ['code' => '090005', 'fake' => false],
                     'Z53' => ['code' => '090005', 'fake' => false],
                     'Z54' => ['code' => '090005', 'fake' => false],
@@ -1160,6 +1189,7 @@ class EbicsClientV25Test extends AbstractEbicsTestCase
                     'VMK' => ['code' => '061002', 'fake' => false],
                     'STA' => ['code' => '061002', 'fake' => false],
                     'BKA' => ['code' => '061002', 'fake' => false],
+                    'Z01' => ['code' => '061002', 'fake' => false],
                     'Z52' => ['code' => '061002', 'fake' => false],
                     'Z53' => ['code' => '061002', 'fake' => false],
                     'Z54' => ['code' => '061002', 'fake' => false],
@@ -1207,6 +1237,7 @@ class EbicsClientV25Test extends AbstractEbicsTestCase
                     'VMK' => ['code' => '090003', 'fake' => false],
                     'STA' => ['code' => '090003', 'fake' => false],
                     'BKA' => ['code' => '091005', 'fake' => false],
+                    'Z01' => ['code' => '090005', 'fake' => false],
                     'Z52' => ['code' => '090005', 'fake' => false],
                     'Z53' => ['code' => '090005', 'fake' => false],
                     'Z54' => ['code' => '090005', 'fake' => false],
@@ -1253,6 +1284,7 @@ class EbicsClientV25Test extends AbstractEbicsTestCase
                     'VMK' => ['code' => '090005', 'fake' => false],
                     'STA' => ['code' => '090005', 'fake' => false],
                     'BKA' => ['code' => '091005', 'fake' => false],
+                    'Z01' => ['code' => '090005', 'fake' => false],
                     'Z52' => ['code' => '090005', 'fake' => false],
                     'Z53' => ['code' => '090005', 'fake' => false],
                     'Z54' => ['code' => '090005', 'fake' => false],
@@ -1299,6 +1331,7 @@ class EbicsClientV25Test extends AbstractEbicsTestCase
                     'VMK' => ['code' => '090003', 'fake' => false],
                     'STA' => ['code' => '090003', 'fake' => false],
                     'BKA' => ['code' => '091005', 'fake' => false],
+                    'Z01' => ['code' => '090005', 'fake' => false],
                     'Z52' => ['code' => '090005', 'fake' => false],
                     'Z53' => ['code' => '090005', 'fake' => false],
                     'Z54' => ['code' => '090005', 'fake' => false],

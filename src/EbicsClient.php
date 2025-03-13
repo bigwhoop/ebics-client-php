@@ -504,6 +504,28 @@ final class EbicsClient implements EbicsClientInterface
      * @inheritDoc
      * @throws Exceptions\EbicsException
      */
+    public function Z01(
+        ?DateTimeInterface $startDateTime = null,
+        ?DateTimeInterface $endDateTime = null,
+        ?RequestContext $context = null
+    ): DownloadOrderResult {
+        $context = $this->requestFactory->prepareDownloadContext($context)
+            ->setStartDateTime($startDateTime)
+            ->setEndDateTime($endDateTime);
+
+        $transaction = $this->downloadTransaction(
+            function () use ($context) {
+                return $this->requestFactory->createZ01($context);
+            }
+        );
+
+        return $this->createDownloadOrderResult($transaction, self::FILE_PARSER_FORMAT_ZIP_FILES);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws Exceptions\EbicsException
+     */
     public function Z52(
         ?DateTimeInterface $startDateTime = null,
         ?DateTimeInterface $endDateTime = null,
